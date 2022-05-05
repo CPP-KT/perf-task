@@ -2,6 +2,7 @@
 
 #include <mutex>
 #include <system_error>
+#include <cstring>
 
 #include <fcntl.h>
 #include <sys/stat.h>
@@ -10,14 +11,22 @@
 
 class Logger {
 public:
-    Logger(const std::string& path) {
+    Logger(const std::string& path) : buff(10000) {
         fd_ = ::open(path.c_str(), O_CREAT | O_APPEND | O_WRONLY | O_TRUNC, 0644);
         if (fd_ == -1) {
             throw std::system_error(errno, std::system_category(), "open");
         }
     }
 
+    void flush() {
+        if (::write(fd_, buff.data(), size) != static_cast<ssize_t>(size)) {
+            throw std::system_error(errno, std::system_category(), "write");
+        }
+        size = 0;
+    }
+
     ~Logger() {
+        flush();
         if (fd_ != -1) {
             ::close(fd_);
             fd_ = -1;
@@ -25,12 +34,17 @@ public:
     }
 
     void Write(const std::string& msg) {
-        if (::write(fd_, msg.data(), msg.size()) != static_cast<ssize_t>(msg.size())) {
-            throw std::system_error(errno, std::system_category(), "write");
+        if (size + msg.size() >= buff.size()) {
+            flush();
         }
+        std::memcpy(buff.data() + size, msg.data(), msg.size());
+        size += msg.size();
     }
 
 private:
+    std::mutex mtx;
+    std::vector<char> buff;
+    size_t size = 0;
     int fd_ = -1;
 };
 
