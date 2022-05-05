@@ -12,12 +12,9 @@ void BM_ComputePi(benchmark::State& state) {
 
     srand(42);
 
-    std::default_random_engine engine(42);
-    std::uniform_int_distribution<int> randomPixel(0, 1000);
-
     for (auto _ : state) {
-        int x = randomPixel(engine);
-        int y = randomPixel(engine);
+        int x = rand() % 1000;
+        int y = rand() % 1000;
 
         total++;
         if (x * x + y * y < 1000 * 1000) {

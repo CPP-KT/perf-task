@@ -14,6 +14,14 @@ std::string ToJson(const User& user) {
            "}";
 }
 
+std::ostream& operator<<(std::ostream& out, const User& user) {
+    out << "{"
+        << "\"id\":" << user.id << ","
+        << "\"username\":\"" << user.username << "\""
+        << "}";
+    return out;
+}
+
 struct Message {
     int64_t id;
     std::string subject;
@@ -25,7 +33,15 @@ struct Message {
 // DO NOT change signature of this function.
 // You may change signature of other functions.
 std::string ToJson(const Message& msg) {
-    return "{\"id\":" + std::to_string(msg.id) + ",\"subject\":\"" + msg.subject + "\",\"body\":\"" + msg.body + "\",\"from\":" + ToJson(msg.from) + ",\"to\":" + ToJson(msg.to) + "}";
+    std::stringstream ss;
+    ss << "{"
+       << "\"id\":" << msg.id << ","
+       << "\"subject\":\"" << msg.subject << "\","
+       << "\"body\":\"" << msg.body << "\","
+       << "\"from\":" << msg.from << ","
+       << "\"to\":" << msg.to
+       << "}";
+    return ss.str();
 }
 
 void BM_MessageToJson(benchmark::State& state) {

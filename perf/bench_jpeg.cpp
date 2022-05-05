@@ -2,9 +2,8 @@
 
 #include <random>
 #include <vector>
-#include <iostream>
 
-typedef std::array<int, 3>
+typedef std::vector<int>
     Pixel;
 
 typedef std::vector<std::vector<Pixel>>
