@@ -18,4 +18,4 @@ python3 ci-extra/check.py json_fix.json json_base.json 1.4
 python3 ci-extra/check.py jpeg_fix.json jpeg_base.json 4
 python3 ci-extra/check.py logger_fix.json logger_base.json 6
 python3 ci-extra/check.py pi_fix.json pi_base.json 10
-python3 ci-extra/check.py sort_fix.json sort_base.json 1.4
+python3 ci-extra/check.py sort_fix.json sort_base.json 1.2
