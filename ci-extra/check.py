@@ -17,7 +17,7 @@ if __name__ == "__main__":
     
     multiplier = float(sys.argv[3])
 
-    print(json_fix["benchmarks"][0]["real_time"]))
+    print(json_fix["benchmarks"][0]["real_time"])
     print(json_base["benchmarks"][0]["real_time"])
     print(multiplier)
 
@@ -25,6 +25,7 @@ if __name__ == "__main__":
         print("OK")
     else:
         print("No improvement")
+        sys.exit(1)
 
     # print(json_fix["benchmarks"][0]["real_time"])
     # print(json_base["benchmarks"][0]["real_time"])

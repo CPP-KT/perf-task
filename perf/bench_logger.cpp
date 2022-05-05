@@ -34,6 +34,7 @@ public:
     }
 
     void Write(const std::string& msg) {
+        std::unique_lock lock(mtx);
         if (size + msg.size() >= buff.size()) {
             flush();
         }
