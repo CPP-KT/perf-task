@@ -14,8 +14,8 @@ cmake-build-$1/ci-extra/perf/base_bench_logger --benchmark_format=json > logger_
 cmake-build-$1/ci-extra/perf/base_bench_pi     --benchmark_format=json > pi_base.json
 cmake-build-$1/ci-extra/perf/base_bench_radix_sort   --benchmark_format=json > sort_base.json
 
-python3 ci-extra/check.py json_fix.json json_base.json 1.666
-python3 ci-extra/check.py jpeg_fix.json jpeg_base.json 6
-python3 ci-extra/check.py logger_fix.json logger_base.json 8
-python3 ci-extra/check.py pi_fix.json pi_base.json 20
+python3 ci-extra/check.py json_fix.json json_base.json 1.4
+python3 ci-extra/check.py jpeg_fix.json jpeg_base.json 4
+python3 ci-extra/check.py logger_fix.json logger_base.json 6
+python3 ci-extra/check.py pi_fix.json pi_base.json 10
 python3 ci-extra/check.py sort_fix.json sort_base.json 1.4

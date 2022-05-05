@@ -26,8 +26,3 @@ if __name__ == "__main__":
     else:
         print("No improvement")
         sys.exit(1)
-
-    # print(json_fix["benchmarks"][0]["real_time"])
-    # print(json_base["benchmarks"][0]["real_time"])
-
-    
