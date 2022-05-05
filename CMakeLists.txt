@@ -1,15 +1,16 @@
 cmake_minimum_required(VERSION 3.21)
-project(template)
+project(perf)
 
 set(CMAKE_CXX_STANDARD 17)
 
 find_package(GTest REQUIRED)
+find_package(benchmark REQUIRED)
 
-add_executable(tests tests.cpp)
+add_subdirectory(perf)
 
-if (NOT MSVC)
-  target_compile_options(tests PRIVATE -Wall -Wno-sign-compare -pedantic)
-endif()
+if (ENABLE_SLOW_TEST)
+  add_subdirectory(ci-extra/perf)
+endif ()
 
 option(USE_SANITIZERS "Enable to build with undefined,leak and address sanitizers" OFF)
 if (USE_SANITIZERS)
@@ -24,5 +25,3 @@ endif()
 if (CMAKE_BUILD_TYPE MATCHES "Debug")
   target_compile_options(tests PUBLIC -D_GLIBCXX_DEBUG)
 endif()
-
-target_link_libraries(tests GTest::gtest GTest::gtest_main)
