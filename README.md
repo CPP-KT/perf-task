@@ -11,9 +11,20 @@
  - `bench_json` - понять что тормозит и ускорить бенчмарк на 40%.
  - `bench_logger` - найти bottleneck и ускорить бенчмарк в 8 раз. Смысл класса Logger должен остаться прежним. После завершения процесса содержимое лога должно быть таким же как и до ваших изменений.
 
-Не забудьте, что профилировать нужно релизную сборку кода c включеными
-дебажными символами. `-DCMAKE_BUILD_TYPE=RelWithDebInfo`.
+Не забудьте, что профилировать нужно релизную сборку кода c включенными дебажными символами (`--preset RelWithDebInfo` при сборке с vcpkg).
 
 Профайлер нужно использовать в режиме `record && report`. Режим `stat` в этой задаче вам не поможет.
 
 Возможно вам помогут флаги `-g` и `--call-graph dwarf`.
+
+## Сборка
+В этой задаче как обычно работает сборка и запуск [через CLion](https://cpp-kt.github.io/course/ide/clion.html), но возможностей встроенного в CLion профайлера вам может не хватить.
+
+Чтобы собрать руками, можно выполнить следующие команды (при условии, что у вас уже настроено окружение аналогичное тому, что для запуска через clion, то есть установлен vcpkg).
+```
+mkdir -p cmake-build-RelWithDebInfo
+rm -rf cmake-build-RelWithDebInfo/*
+cmake "-DCMAKE_TOOLCHAIN_FILE=<path-to-vcpkg>/vcpkg/scripts/buildsystems/vcpkg.cmake" -GNinja --preset RelWithDebInfo -S .
+cmake --build cmake-build-RelWithDebInfo
+```
+Бинари для каждой из подзадач будут лежать в `cmake-build-RelWithDebInfo/perf`, дальше их можно использовать для запуска под perf.
