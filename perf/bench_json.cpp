@@ -7,17 +7,18 @@ struct User {
   std::string username;
 };
 
-std::string ToJson(const User& user) {
-  return std::string("{") + "\"id\":" + std::to_string(user.id) + "," +
-         "\"username\":\"" + user.username + "\"" + "}";
-}
-
 std::ostream& operator<<(std::ostream& out, const User& user) {
   out << "{"
       << "\"id\":" << user.id << ","
       << "\"username\":\"" << user.username << "\""
       << "}";
   return out;
+}
+
+std::string ToJson(const User& user) {
+  std::stringstream ss;
+  ss << user;
+  return ss.str();
 }
 
 struct Message {
