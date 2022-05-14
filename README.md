@@ -30,3 +30,5 @@ cmake "-DCMAKE_TOOLCHAIN_FILE=<path-to-vcpkg>/vcpkg/scripts/buildsystems/vcpkg.c
 cmake --build cmake-build-RelWithDebInfo
 ```
 Бинари для каждой из подзадач будут лежать в `cmake-build-RelWithDebInfo/perf`, дальше их можно использовать для запуска под perf.
+
+Полезное про perf: https://www.brendangregg.com/perf.html
