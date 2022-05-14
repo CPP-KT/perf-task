@@ -1,6 +1,5 @@
 #include <benchmark/benchmark.h>
 
-#include <mutex>
 #include <system_error>
 
 #include <fcntl.h>
