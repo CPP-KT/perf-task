@@ -7,7 +7,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-// try to optimize without removing C-style file writing!
+// try to optimize without removing syscalls!
 class Logger {
 public:
   Logger(const std::string& path) {
