@@ -21,6 +21,7 @@ std::string ToJson(const User& user) {
   return ss.str();
 }
 
+// don't change structs!
 struct Message {
   int64_t id;
   std::string subject;
