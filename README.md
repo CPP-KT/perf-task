@@ -28,6 +28,13 @@ docker run --privileged -t -v ~/perf-lejabque:/perf-lejabque -i clang-remote-dev
 ```
 Сборка в докере проверялась только на macOS и Linux, при возникновении проблем приходите в чат.
 
+Если вы пользуетесь Windows, то чтобы заработал perf в докер-контейнере, нужно сделать следующие шаги:
+1. Нужно убедиться, что в Docker Desktop установлен WSL2 как бекенд https://docs.docker.com/desktop/windows/wsl/
+2. Cделать `wsl -l -v`, увидеть там работающий инстанс docker-desktop
+3. Cделать `wsl -d docker-desktop`
+4. Вы попадёте внутрь шелла WSL, там нужно выполнить `sysctl kernel.perf_event_paranoid=-1`
+5. perf внутри докер-контейнера должен заработать.
+
 ### Сборка руками
 В этой задаче как обычно работает сборка и запуск [через CLion](https://cpp-kt.github.io/course/ide/clion.html), но возможностей встроенного в CLion профайлера вам может не хватить.
 
