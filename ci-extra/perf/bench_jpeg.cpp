@@ -3,9 +3,9 @@
 #include <random>
 #include <vector>
 
-typedef std::vector<int> Pixel;
+using Pixel = std::vector<int>;
 
-typedef std::vector<std::vector<Pixel>> Picture;
+using Picture = std::vector<std::vector<Pixel>>;
 
 Picture MakeRandom() {
   const size_t HEIGHT = 600, WIDTH = 800;
@@ -31,15 +31,12 @@ Picture ScaleDown(const Picture& picture) {
     scaled.emplace_back();
     for (size_t j = 0; j < picture[0].size(); j += 2) {
       auto avgComponent = [&](size_t componentIndex) {
-        return (picture[i][j][componentIndex] +
-                picture[i + 1][j][componentIndex] +
-                picture[i][j + 1][componentIndex] +
-                picture[i + 1][j + 1][componentIndex]) /
+        return (picture[i][j][componentIndex] + picture[i + 1][j][componentIndex] +
+                picture[i][j + 1][componentIndex] + picture[i + 1][j + 1][componentIndex]) /
                4;
       };
 
-      scaled.back().emplace_back() =
-          Pixel{avgComponent(0), avgComponent(1), avgComponent(2)};
+      scaled.back().emplace_back() = Pixel{avgComponent(0), avgComponent(1), avgComponent(2)};
     }
   }
 

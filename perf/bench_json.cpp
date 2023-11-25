@@ -44,9 +44,11 @@ std::string ToJson(const Message& msg) {
 }
 
 void BM_MessageToJson(benchmark::State& state) {
-  Message msg{1000, "About modules",
-              "So, when is that 'modules' proposal coming?",
-              User{12345, "Herb Sutter"}, User{1, "Biern Stroustrup"}};
+  Message msg{
+      1000, "About modules", "So, when is that 'modules' proposal coming?",
+      User{12345,      "Herb Sutter"},
+      User{    1, "Biern Stroustrup"}
+  };
 
   for (auto _ : state) {
     benchmark::DoNotOptimize(ToJson(msg));

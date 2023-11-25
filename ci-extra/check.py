@@ -1,7 +1,6 @@
 import json
 import sys
 
-
 if __name__ == "__main__":
     if len(sys.argv) != 4:
         print("Wrong argument count: ", len(sys.argv) != 4)
@@ -14,7 +13,7 @@ if __name__ == "__main__":
 
     with open(sys.argv[2]) as base:
         json_base = json.load(base)
-    
+
     multiplier = float(sys.argv[3])
 
     print("solution time: ", json_fix["benchmarks"][0]["real_time"])

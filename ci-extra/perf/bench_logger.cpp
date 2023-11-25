@@ -1,11 +1,10 @@
 #include <benchmark/benchmark.h>
-
-#include <system_error>
-
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+
+#include <system_error>
 
 class Logger {
 public:
@@ -24,8 +23,7 @@ public:
   }
 
   void Write(const std::string& msg) {
-    if (::write(fd_, msg.data(), msg.size()) !=
-        static_cast<ssize_t>(msg.size())) {
+    if (::write(fd_, msg.data(), msg.size()) != static_cast<ssize_t>(msg.size())) {
       throw std::system_error(errno, std::system_category(), "write");
     }
   }

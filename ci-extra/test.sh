@@ -2,17 +2,17 @@
 set -euo pipefail
 IFS=$' \t\n'
 
-cmake-build-$1/perf/bench_json   --benchmark_format=json > json_fix.json
-cmake-build-$1/perf/bench_jpeg   --benchmark_format=json > jpeg_fix.json
-cmake-build-$1/perf/bench_logger --benchmark_format=json > logger_fix.json
-cmake-build-$1/perf/bench_pi     --benchmark_format=json > pi_fix.json
-cmake-build-$1/perf/bench_radix_sort   --benchmark_format=json > sort_fix.json
+cmake-build-$1/perf/bench_json --benchmark_format=json >json_fix.json
+cmake-build-$1/perf/bench_jpeg --benchmark_format=json >jpeg_fix.json
+cmake-build-$1/perf/bench_logger --benchmark_format=json >logger_fix.json
+cmake-build-$1/perf/bench_pi --benchmark_format=json >pi_fix.json
+cmake-build-$1/perf/bench_radix_sort --benchmark_format=json >sort_fix.json
 
-cmake-build-$1/ci-extra/perf/base_bench_json   --benchmark_format=json > json_base.json
-cmake-build-$1/ci-extra/perf/base_bench_jpeg   --benchmark_format=json > jpeg_base.json
-cmake-build-$1/ci-extra/perf/base_bench_logger --benchmark_format=json > logger_base.json
-cmake-build-$1/ci-extra/perf/base_bench_pi     --benchmark_format=json > pi_base.json
-cmake-build-$1/ci-extra/perf/base_bench_radix_sort   --benchmark_format=json > sort_base.json
+cmake-build-$1/ci-extra/perf/base_bench_json --benchmark_format=json >json_base.json
+cmake-build-$1/ci-extra/perf/base_bench_jpeg --benchmark_format=json >jpeg_base.json
+cmake-build-$1/ci-extra/perf/base_bench_logger --benchmark_format=json >logger_base.json
+cmake-build-$1/ci-extra/perf/base_bench_pi --benchmark_format=json >pi_base.json
+cmake-build-$1/ci-extra/perf/base_bench_radix_sort --benchmark_format=json >sort_base.json
 
 echo "Testing json..."
 python3 ci-extra/check.py json_fix.json json_base.json 1.4

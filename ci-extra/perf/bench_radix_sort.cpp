@@ -10,8 +10,7 @@ std::vector<uint64_t> GenRandom(size_t size) {
   result.resize(size);
 
   std::default_random_engine engine(42);
-  std::uniform_int_distribution<uint64_t> randomElement(
-      0, std::numeric_limits<uint64_t>::max());
+  std::uniform_int_distribution<uint64_t> randomElement(0, std::numeric_limits<uint64_t>::max());
   for (auto& e : result) {
     e = randomElement(engine);
   }
