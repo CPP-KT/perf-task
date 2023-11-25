@@ -1,4 +1,10 @@
 
+add_compile_options(-Wall -pedantic -Wextra -Wno-sign-compare)
+add_compile_options(-Wold-style-cast -Wextra-semi -Woverloaded-virtual -Wzero-as-null-pointer-constant)
+if(TREAT_WARNINGS_AS_ERRORS)
+  add_compile_options(-Werror -pedantic-errors)
+endif()
+
 add_executable(bench_jpeg bench_jpeg.cpp)
 target_link_libraries(bench_jpeg benchmark::benchmark)
 

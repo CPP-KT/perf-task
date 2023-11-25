@@ -7,25 +7,6 @@
   },
   "configurePresets": [
     {
-      "name": "Release",
-      "displayName": "Release",
-      "description": "Default Release build",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release"
-      },
-      "binaryDir": "cmake-build-Release"
-    },
-    {
-      "name": "SanitizedDebug",
-      "displayName": "SanitizedDebug",
-      "description": "Debug build with undefined, address and leak sanitizers enabled",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "USE_SANITIZERS": "ON"
-      },
-      "binaryDir": "cmake-build-SanitizedDebug"
-    },
-    {
       "name": "RelWithDebInfo",
       "displayName": "RelWithDebInfo",
       "description": "Release with debug info",
