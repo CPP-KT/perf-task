@@ -17,7 +17,7 @@ cmake-build-$1/ci-extra/perf/base_bench_radix_sort --benchmark_format=json >sort
 echo "Testing json..."
 python3 ci-extra/check.py json_fix.json json_base.json 1.5
 echo "Testing jpeg..."
-python3 ci-extra/check.py jpeg_fix.json jpeg_base.json 4
+python3 ci-extra/check.py jpeg_fix.json jpeg_base.json 3.5
 echo "Testing logger..."
 python3 ci-extra/check.py logger_fix.json logger_base.json 20
 echo "Testing pi..."

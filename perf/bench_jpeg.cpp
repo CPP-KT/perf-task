@@ -3,55 +3,62 @@
 #include <random>
 #include <vector>
 
+namespace {
+
 using Pixel = std::vector<int>;
 
 using Picture = std::vector<std::vector<Pixel>>;
 
-Picture MakeRandom() {
-  const size_t HEIGHT = 600, WIDTH = 800;
+Picture random_picture() {
+  static constexpr size_t HEIGHT = 600;
+  static constexpr size_t WIDTH = 800;
 
-  std::default_random_engine engine(42);
-  std::uniform_int_distribution<int> randomPixel(0, 255);
+  std::mt19937 rng(std::mt19937::default_seed);
+  std::uniform_int_distribution<int> color_dist(0, 255);
 
   Picture picture;
   for (size_t i = 0; i < HEIGHT; i++) {
     picture.emplace_back();
     for (size_t j = 0; j < WIDTH; j++) {
-      picture.back().emplace_back() =
-          Pixel{randomPixel(engine), randomPixel(engine), randomPixel(engine)};
+      picture.back().emplace_back() = Pixel{color_dist(rng), color_dist(rng), color_dist(rng)};
     }
   }
   return picture;
 }
 
-Picture ScaleDown(const Picture& picture) {
+Picture scale_down(const Picture& picture) {
   Picture scaled;
 
   for (size_t i = 0; i < picture.size(); i += 2) {
     scaled.emplace_back();
     for (size_t j = 0; j < picture[0].size(); j += 2) {
-      auto avgComponent = [&](size_t componentIndex) {
-        return (picture[i][j][componentIndex] + picture[i + 1][j][componentIndex] +
-                picture[i][j + 1][componentIndex] + picture[i + 1][j + 1][componentIndex]) /
+      auto avg_component = [&](size_t component_idx) {
+        return (picture[i][j][component_idx] + picture[i + 1][j][component_idx] +
+                picture[i][j + 1][component_idx] + picture[i + 1][j + 1][component_idx]) /
                4;
       };
 
-      scaled.back().emplace_back() = Pixel{avgComponent(0), avgComponent(1), avgComponent(2)};
+      int red = avg_component(0);
+      int blue = avg_component(1);
+      int green = avg_component(2);
+      scaled.back().emplace_back() = Pixel{red, blue, green};
     }
   }
 
   return scaled;
 }
 
-void BM_ScaleComponents(benchmark::State& state) {
-  auto randomPicture = MakeRandom();
+void bm_scale_components(benchmark::State& state) {
+  const auto picture = random_picture();
 
   for (auto _ : state) {
-    auto copy = randomPicture;
-    benchmark::DoNotOptimize(ScaleDown(copy));
+    const auto copy = picture;
+    benchmark::DoNotOptimize(scale_down(copy));
   }
 }
 
-BENCHMARK(BM_ScaleComponents)->Unit(benchmark::kMillisecond);
+} // namespace
+
+BENCHMARK(bm_scale_components)->Unit(benchmark::kMillisecond);
 
 BENCHMARK_MAIN();
