@@ -5,17 +5,17 @@ if(TREAT_WARNINGS_AS_ERRORS)
   add_compile_options(-Werror -pedantic-errors)
 endif()
 
-add_executable(bench_jpeg bench_jpeg.cpp)
-target_link_libraries(bench_jpeg benchmark::benchmark)
+add_executable(jpeg jpeg.cpp)
+target_link_libraries(jpeg benchmark::benchmark)
 
-add_executable(bench_pi bench_pi.cpp)
-target_link_libraries(bench_pi benchmark::benchmark)
+add_executable(pi pi.cpp)
+target_link_libraries(pi benchmark::benchmark)
 
-add_executable(bench_radix_sort bench_radix_sort.cpp)
-target_link_libraries(bench_radix_sort benchmark::benchmark)
+add_executable(radix_sort radix-sort.cpp)
+target_link_libraries(radix_sort benchmark::benchmark)
 
-add_executable(bench_json bench_json.cpp)
-target_link_libraries(bench_json benchmark::benchmark)
+add_executable(json json.cpp)
+target_link_libraries(json benchmark::benchmark)
 
-add_executable(bench_logger bench_logger.cpp)
-target_link_libraries(bench_logger benchmark::benchmark)
+add_executable(logger logger.cpp)
+target_link_libraries(logger benchmark::benchmark)

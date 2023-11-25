@@ -1,15 +1,15 @@
 
-add_executable(base_bench_jpeg bench_jpeg.cpp)
-target_link_libraries(base_bench_jpeg benchmark::benchmark)
+add_executable(base_jpeg jpeg.cpp)
+target_link_libraries(base_jpeg benchmark::benchmark)
 
-add_executable(base_bench_pi bench_pi.cpp)
-target_link_libraries(base_bench_pi benchmark::benchmark)
+add_executable(base_pi pi.cpp)
+target_link_libraries(base_pi benchmark::benchmark)
 
-add_executable(base_bench_radix_sort bench_radix_sort.cpp)
-target_link_libraries(base_bench_radix_sort benchmark::benchmark)
+add_executable(base_radix_sort radix-sort.cpp)
+target_link_libraries(base_radix_sort benchmark::benchmark)
 
-add_executable(base_bench_json bench_json.cpp)
-target_link_libraries(base_bench_json benchmark::benchmark)
+add_executable(base_json json.cpp)
+target_link_libraries(base_json benchmark::benchmark)
 
-add_executable(base_bench_logger bench_logger.cpp)
-target_link_libraries(base_bench_logger benchmark::benchmark)
+add_executable(base_logger logger.cpp)
+target_link_libraries(base_logger benchmark::benchmark)
