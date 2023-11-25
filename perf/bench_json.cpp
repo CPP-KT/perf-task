@@ -1,7 +1,11 @@
 #include <benchmark/benchmark.h>
 
 #include <sstream>
+#include <string>
 
+namespace {
+
+// DO NOT change this struct
 struct User {
   int64_t id;
   std::string username;
@@ -15,24 +19,24 @@ std::ostream& operator<<(std::ostream& out, const User& user) {
   return out;
 }
 
-std::string ToJson(const User& user) {
+std::string to_json(const User& user) {
   std::stringstream ss;
   ss << user;
   return ss.str();
 }
 
-// don't change structs!
+// DO NOT change this struct
 struct Message {
   int64_t id;
   std::string subject;
   std::string body;
 
-  User from, to;
+  User from;
+  User to;
 };
 
-// DO NOT change signature of this function.
-// You may change signature of other functions.
-std::string ToJson(const Message& msg) {
+// DO NOT change this function's signature
+std::string to_json(const Message& msg) {
   std::stringstream ss;
   ss << "{"
      << "\"id\":" << msg.id << ","
@@ -43,18 +47,20 @@ std::string ToJson(const Message& msg) {
   return ss.str();
 }
 
-void BM_MessageToJson(benchmark::State& state) {
+void bm_message_to_json(benchmark::State& state) {
   Message msg{
-      1000, "About modules", "So, when is that 'modules' proposal coming?",
-      User{12345,      "Herb Sutter"},
-      User{    1, "Biern Stroustrup"}
+      .id = 1000,
+      .subject = "About modules",
+      .body = "So, when is that 'modules' proposal coming?",
+      .from = User{.id = 12345,      .username = "Herb Sutter"},
+      .to = User{    .id = 1, .username = "Biern Stroustrup"}
   };
 
   for (auto _ : state) {
-    benchmark::DoNotOptimize(ToJson(msg));
+    benchmark::DoNotOptimize(to_json(msg));
   }
 
-  auto json = ToJson(msg);
+  auto json = to_json(msg);
   std::string expected =
       R"({"id":1000,"subject":"About modules","body":"So, when is that 'modules' proposal coming?","from":{"id":12345,"username":"Herb Sutter"},"to":{"id":1,"username":"Biern Stroustrup"}})";
   if (json != expected) {
@@ -62,6 +68,8 @@ void BM_MessageToJson(benchmark::State& state) {
   }
 }
 
-BENCHMARK(BM_MessageToJson);
+} // namespace
+
+BENCHMARK(bm_message_to_json);
 
 BENCHMARK_MAIN();
