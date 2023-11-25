@@ -5,39 +5,41 @@
 #include <random>
 #include <vector>
 
-std::vector<uint64_t> GenRandom(size_t size) {
+namespace {
+
+std::vector<uint64_t> random_vector(size_t size) {
   std::vector<uint64_t> result;
   result.resize(size);
 
-  std::default_random_engine engine(42);
-  std::uniform_int_distribution<uint64_t> randomElement(0, std::numeric_limits<uint64_t>::max());
+  std::mt19937 rng(std::mt19937::default_seed);
+  std::uniform_int_distribution<uint64_t> element_dist;
   for (auto& e : result) {
-    e = randomElement(engine);
+    e = element_dist(rng);
   }
 
   return result;
 }
 
-size_t CountZeroBit(const std::vector<uint64_t>& input, int bit) {
+size_t count_zero_bits(const std::vector<uint64_t>& input, size_t bit) {
   size_t count = 0;
   for (auto e : input) {
-    if ((e >> bit) & 1) {
-      count++;
+    if (((e >> bit) & 1u) == 0) {
+      ++count;
     }
   }
-  return input.size() - count;
+  return count;
 }
 
-// DO NOT change the algorithm.
-void RadixSort(std::vector<uint64_t>* input) {
-  for (int bit = 0; bit < 64; ++bit) {
-    auto count = CountZeroBit(*input, bit);
+// DO NOT change the algorithm
+void radix_sort(std::vector<uint64_t>& input) {
+  for (size_t bit = 0; bit < std::numeric_limits<uint64_t>::digits; ++bit) {
+    auto count = count_zero_bits(input, bit);
 
-    std::vector<uint64_t> buffer;
-    buffer.resize(input->size());
+    std::vector<uint64_t> buffer(input.size());
 
-    size_t i = 0, j = count;
-    for (auto e : *input) {
+    size_t i = 0;
+    size_t j = count;
+    for (auto e : input) {
       if ((e >> bit) & 1) {
         buffer[j++] = e;
       } else {
@@ -45,17 +47,17 @@ void RadixSort(std::vector<uint64_t>* input) {
       }
     }
 
-    input->swap(buffer);
+    input.swap(buffer);
   }
 }
 
-void BM_RadixSort(benchmark::State& state) {
-  auto input = GenRandom(16 << 20);
+void bm_radix_sort(benchmark::State& state) {
+  auto input = random_vector(1u << 24);
   auto copy = input;
 
   for (auto _ : state) {
     copy = input;
-    RadixSort(&copy);
+    radix_sort(copy);
 
     benchmark::DoNotOptimize(copy);
   }
@@ -65,6 +67,8 @@ void BM_RadixSort(benchmark::State& state) {
   }
 }
 
-BENCHMARK(BM_RadixSort)->Unit(benchmark::kMillisecond);
+} // namespace
+
+BENCHMARK(bm_radix_sort)->Unit(benchmark::kMillisecond);
 
 BENCHMARK_MAIN();
