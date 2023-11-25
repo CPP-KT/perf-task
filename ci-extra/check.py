@@ -14,13 +14,17 @@ if __name__ == "__main__":
     with open(sys.argv[2]) as base:
         json_base = json.load(base)
 
-    multiplier = float(sys.argv[3])
+    solution_time = json_fix["benchmarks"][0]["real_time"]
+    base_time = json_base["benchmarks"][0]["real_time"]
+    expected_multiplier = float(sys.argv[3])
+    actual_multiplier = float(base_time) / float(solution_time)
 
-    print("solution time: ", json_fix["benchmarks"][0]["real_time"])
-    print("base time", json_base["benchmarks"][0]["real_time"])
-    print("expected improvement multiplier: ", multiplier)
+    print(f"solution time: {solution_time}")
+    print(f"base time: {base_time}")
+    print(f"expected improvement multiplier: {expected_multiplier}")
+    print(f"actual improvement multiplier: {actual_multiplier}")
 
-    if (float(json_fix["benchmarks"][0]["real_time"]) <= json_base["benchmarks"][0]["real_time"] / multiplier):
+    if actual_multiplier >= expected_multiplier:
         print("OK")
     else:
         print("FAIL")
