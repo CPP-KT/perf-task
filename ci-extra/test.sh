@@ -21,6 +21,6 @@ python3 ci-extra/check.py jpeg_fix.json jpeg_base.json 4
 echo "Testing logger..."
 python3 ci-extra/check.py logger_fix.json logger_base.json 6
 echo "Testing pi..."
-python3 ci-extra/check.py pi_fix.json pi_base.json 10
+python3 ci-extra/check.py pi_fix.json pi_base.json 20
 echo "Testing sort..."
 python3 ci-extra/check.py sort_fix.json sort_base.json 1.2

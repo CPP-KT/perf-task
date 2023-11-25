@@ -4,27 +4,48 @@
 #include <cstdlib>
 #include <random>
 
-// Computes PI using monte carlo method.
-// DO NOT change the algorithm.
-void BM_ComputePi(benchmark::State& state) {
+namespace {
+
+// Computes PI using Monte Carlo method
+// DO NOT change the algorithm
+struct MonteCarlo {
   int64_t total = 0;
   int64_t inside_circle = 0;
 
-  srand(42);
+  MonteCarlo() {
+    std::srand(42);
+  }
 
-  for (auto _ : state) {
-    int x = rand() % 1000;
-    int y = rand() % 1000;
+  void operator()() {
+    int x = std::rand() % SQUARE_SIZE;
+    int y = std::rand() % SQUARE_SIZE;
 
-    total++;
-    if (x * x + y * y < 1000 * 1000) {
-      inside_circle++;
+    ++total;
+    if (x * x + y * y < SQUARE_SIZE * SQUARE_SIZE) {
+      ++inside_circle;
     }
   }
 
-  state.counters["pi"] = 4 * double(inside_circle) / total;
+  double get_pi() const {
+    return 4 * static_cast<double>(inside_circle) / static_cast<double>(total);
+  }
+
+private:
+  static constexpr size_t SQUARE_SIZE = 1000;
+};
+
+void bm_compute_pi(benchmark::State& state) {
+  MonteCarlo mc;
+
+  for (auto _ : state) {
+    mc();
+  }
+
+  state.counters["pi"] = mc.get_pi() / state.threads();
 }
 
-BENCHMARK(BM_ComputePi)->Threads(2);
+} // namespace
+
+BENCHMARK(bm_compute_pi)->Threads(2);
 
 BENCHMARK_MAIN();
