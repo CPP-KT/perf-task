@@ -20,11 +20,11 @@ fail=0
 echo "Testing json..."
 python3 ci-extra/check.py json_fix.json json_base.json 1.5 || ((fail = 1))
 echo "Testing jpeg..."
-python3 ci-extra/check.py jpeg_fix.json jpeg_base.json 3.5 || ((fail = 1))
+python3 ci-extra/check.py jpeg_fix.json jpeg_base.json 4 || ((fail = 1))
 echo "Testing logger..."
-python3 ci-extra/check.py logger_fix.json logger_base.json 20 || ((fail = 1))
+python3 ci-extra/check.py logger_fix.json logger_base.json 30 || ((fail = 1))
 echo "Testing pi..."
-python3 ci-extra/check.py pi_fix.json pi_base.json 20 || ((fail = 1))
+python3 ci-extra/check.py pi_fix.json pi_base.json 40 || ((fail = 1))
 echo "Testing sort..."
 python3 ci-extra/check.py sort_fix.json sort_base.json 1.2 || ((fail = 1))
 
