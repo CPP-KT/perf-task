@@ -22,12 +22,28 @@
 Руками его можно выставить, передав в CMake аргумент `--preset RelWithDebInfo`.
 Также результат может существенно отличаться на разных компиляторах, в CI используется GCC.
 
+## perf 
+
 Если вы используете `perf`, возможно, вам помогут команды `perf record` и `perf report`, а также флаги `-g` и `--call-graph dwarf`.
-Ещё полезное про `perf`: https://www.brendangregg.com/perf.html
+Ещё полезное про `perf`: https://www.brendangregg.com/perf.html.
 
 Можно использовать и другие профилировщики, однако далее будет рассмотрен лишь сценарий использования `perf`.
 
-## Сборка и профилирование
+### FlameGraph
+
+Для анализа результатов `perf` можно пользоваться как обычным консольным `perf report`, так и более удобным [FlameGraph](https://github.com/brendangregg/FlameGraph).
+
+Чтобы нарисовать флейм-граф, нужно:
+1. Склонить его куда-нибудь (`git clone https://github.com/brendangregg/FlameGraph.git`)
+2. В директории с собранным `perf.data` прогнать команду `perf script > out.perf` (важно, чтобы профиль был собран с флагом `-g`)
+3. Находясь в директории, куда склонили FlameGraph, запустить команду `FlameGraph/stackcollapse-perf.pl <path to out.perf> > out.folded && FlameGraph/flamegraph.pl out.folded > fgraph.svg`
+
+### gprof2dot
+
+Ещё один способ визуализации - [gprof2dot](https://github.com/jrfonseca/gprof2dot), превращающий профиль в dot-граф. 
+Запускает командой по типу `gprof2dot -f perf -o out.dot out.perf`, где `out.perf` - результат запуска `perf script` (см. выше часть про FlameGraph).
+ 
+## Сборка и запуск perf
 
 > [!WARNING]
 > **Работоспособность гарантируется только на Linux.**
@@ -56,6 +72,8 @@ sudo sysctl kernel.kptr_restrict=0
 3. Cделать `wsl -d docker-desktop`
 4. Вы попадёте внутрь шелла WSL, там нужно выполнить `sysctl kernel.perf_event_paranoid=-1`
 5. perf внутри докер-контейнера должен заработать.
+
+Если вы пользуетесь MacOS, то возможно единственный путь это запускать докер-контейнер без указания user'а (то есть под рутом).
 
 ### Сборка руками
 
