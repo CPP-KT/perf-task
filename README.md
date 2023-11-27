@@ -36,7 +36,7 @@
 Чтобы нарисовать флейм-граф, нужно:
 1. Склонить его куда-нибудь (`git clone https://github.com/brendangregg/FlameGraph.git`)
 2. В директории с собранным `perf.data` прогнать команду `perf script > out.perf` (важно, чтобы профиль был собран с флагом `-g`)
-3. Находясь в директории, куда склонили FlameGraph, запустить команду `FlameGraph/stackcollapse-perf.pl <path to out.perf> > out.folded && ./flamegraph.pl out.folded > fgraph.svg`
+3. Находясь в директории, куда склонили FlameGraph, запустить команду `FlameGraph/stackcollapse-perf.pl <path to out.perf> > out.folded && FlameGraph/flamegraph.pl out.folded > fgraph.svg`
 
 ### gprof2dot
 
