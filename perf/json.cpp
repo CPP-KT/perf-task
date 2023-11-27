@@ -3,8 +3,6 @@
 #include <sstream>
 #include <string>
 
-namespace {
-
 // DO NOT change this struct
 struct User {
   int64_t id;
@@ -46,6 +44,8 @@ std::string to_json(const Message& msg) {
      << "\"to\":" << msg.to << "}";
   return ss.str();
 }
+
+namespace {
 
 void bm_message_to_json(benchmark::State& state) {
   Message msg{
