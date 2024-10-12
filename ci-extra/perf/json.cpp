@@ -10,10 +10,7 @@ struct User {
 };
 
 std::ostream& operator<<(std::ostream& out, const User& user) {
-  out << "{"
-      << "\"id\":" << user.id << ","
-      << "\"username\":\"" << user.username << "\""
-      << "}";
+  out << "{" << "\"id\":" << user.id << "," << "\"username\":\"" << user.username << "\"" << "}";
   return out;
 }
 
@@ -36,12 +33,8 @@ struct Message {
 // DO NOT change this function's signature
 std::string to_json(const Message& msg) {
   std::stringstream ss;
-  ss << "{"
-     << "\"id\":" << msg.id << ","
-     << "\"subject\":\"" << msg.subject << "\","
-     << "\"body\":\"" << msg.body << "\","
-     << "\"from\":" << msg.from << ","
-     << "\"to\":" << msg.to << "}";
+  ss << "{" << "\"id\":" << msg.id << "," << "\"subject\":\"" << msg.subject << "\"," << "\"body\":\"" << msg.body
+     << "\"," << "\"from\":" << msg.from << "," << "\"to\":" << msg.to << "}";
   return ss.str();
 }
 
