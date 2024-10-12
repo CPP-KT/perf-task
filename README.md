@@ -23,7 +23,7 @@
 Руками его можно выставить, передав в CMake аргумент `--preset RelWithDebInfo`.
 Также результат может существенно отличаться на разных компиляторах, в CI используется GCC-14.
 
-## perf 
+## perf
 
 Если вы используете `perf`, возможно, вам помогут команды `perf record` и `perf report`, а также флаги `-g` и `--call-graph dwarf`.
 Ещё полезное про `perf`: https://www.brendangregg.com/perf.html.
@@ -41,9 +41,9 @@
 
 ### gprof2dot
 
-Ещё один способ визуализации &mdash; [gprof2dot](https://github.com/jrfonseca/gprof2dot), превращающий профиль в [dot](https://en.wikipedia.org/wiki/DOT_(graph_description_language))-граф. 
+Ещё один способ визуализации &mdash; [gprof2dot](https://github.com/jrfonseca/gprof2dot), превращающий профиль в [dot](https://en.wikipedia.org/wiki/DOT_(graph_description_language))-граф.
 Запускает командой по типу `gprof2dot -f perf -o out.dot out.perf`, где `out.perf` &mdash; результат запуска `perf script` (см. выше часть про FlameGraph).
- 
+
 ## Сборка и запуск perf
 
 > [!WARNING]
@@ -59,11 +59,11 @@ sudo sysctl kernel.perf_event_paranoid=1
 sudo sysctl kernel.kptr_restrict=0
 ```
 
-Более подробную информацию о них можно найти [здесь](https://www.jetbrains.com/help/clion/cpu-profiler.html#Prerequisites). 
+Более подробную информацию о них можно найти [здесь](https://www.jetbrains.com/help/clion/cpu-profiler.html#Prerequisites).
 
 ### Использование Docker
 
-Инструкцию по установке, настройке и использованию докера можно найти в [CPP-KT/containers](https://github.com/CPP-KT/containers).
+В [наших контейнерах](https://github.com/CPP-KT/containers) не установлен `perf`, поскольку ему важна версия ядра Linux на вашем хосте. Вы можете доустановить его самостоятельно или замаунтить бинарь с хоста.
 
 Чтобы `perf` работал внутри докера, нужно добавить опцию `--privileged` к `docker run`.
 
