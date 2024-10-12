@@ -1,4 +1,3 @@
-
 add_compile_options(-Wall -pedantic -Wextra -Wno-sign-compare)
 add_compile_options(-Wold-style-cast -Wextra-semi -Woverloaded-virtual -Wzero-as-null-pointer-constant)
 if(TREAT_WARNINGS_AS_ERRORS)

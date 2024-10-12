@@ -33,9 +33,12 @@ Picture scale_down(const Picture& picture) {
     scaled.emplace_back();
     for (size_t j = 0; j < picture[0].size(); j += 2) {
       auto avg_component = [&](size_t component_idx) {
-        return (picture[i][j][component_idx] + picture[i + 1][j][component_idx] +
-                picture[i][j + 1][component_idx] + picture[i + 1][j + 1][component_idx]) /
-               4;
+        int sum = 0;
+        sum += picture[i][j][component_idx];
+        sum += picture[i + 1][j][component_idx];
+        sum += picture[i][j + 1][component_idx];
+        sum += picture[i + 1][j + 1][component_idx];
+        return sum / 4;
       };
 
       int red = avg_component(0);

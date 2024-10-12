@@ -52,8 +52,8 @@ void bm_message_to_json(benchmark::State& state) {
       .id = 1000,
       .subject = "About modules",
       .body = "So, when is that 'modules' proposal coming?",
-      .from = User{.id = 12345,      .username = "Herb Sutter"},
-      .to = User{    .id = 1, .username = "Biern Stroustrup"}
+      .from = User{.id = 12345, .username = "Herb Sutter"},
+      .to = User{.id = 1, .username = "Bjarne Stroustrup"}
   };
 
   for (auto _ : state) {
@@ -62,7 +62,7 @@ void bm_message_to_json(benchmark::State& state) {
 
   auto json = to_json(msg);
   std::string expected =
-      R"({"id":1000,"subject":"About modules","body":"So, when is that 'modules' proposal coming?","from":{"id":12345,"username":"Herb Sutter"},"to":{"id":1,"username":"Biern Stroustrup"}})";
+      R"({"id":1000,"subject":"About modules","body":"So, when is that 'modules' proposal coming?","from":{"id":12345,"username":"Herb Sutter"},"to":{"id":1,"username":"Bjarne Stroustrup"}})";
   if (json != expected) {
     state.SkipWithError("Wrong output");
   }

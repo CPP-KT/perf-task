@@ -1,6 +1,5 @@
 #!/bin/bash
 set -euo pipefail
-IFS=$' \t\n'
 
 cmake-build-$1/perf/json --benchmark_format=json >json_fix.json
 cmake-build-$1/perf/jpeg --benchmark_format=json >jpeg_fix.json
