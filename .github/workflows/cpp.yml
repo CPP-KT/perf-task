@@ -6,7 +6,7 @@ on:
 jobs:
   formatting-check:
     name: Formatting check
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, ubuntu]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -35,17 +35,7 @@ jobs:
         build_type:
           - RelWithDebInfo
 
-    runs-on: ${{ matrix.toolchain.os }}
-
-    container:
-      image:
-        ${{
-        contains(matrix.toolchain.os, 'ubuntu') &&
-        format('ghcr.io/cpp-kt/ubuntu:{0}', matrix.toolchain.compiler) ||
-        null
-        }}
-      options:
-        --security-opt seccomp=unconfined
+    runs-on: [self-hosted, ubuntu, "${{ matrix.toolchain.compiler }}", base]
 
     defaults:
       run:
